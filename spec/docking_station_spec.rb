@@ -3,11 +3,15 @@ require 'bike.rb'
 
   describe DockingStation do
 
+    let(:bike) { double :bike}
+
     it { is_expected.to respond_to :release_bike }
 
-    it { is_expected.to respond_to(:dock).with(1).argument }
-
-    let(:bike) { double :bike}
+    it "modifies capacity according to initialize argument" do
+      station = DockingStation.new(DockingStation::DEFAULT_CAPACITY + 1)
+      (DockingStation::DEFAULT_CAPACITY + 1).times { station.dock(bike) }
+      expect {station.dock(bike)}.to raise_error('docking station is full')
+    end
 
     it "creates a bike when release_bike is called" do
       bike = double("bike", :working => true)
@@ -20,7 +24,7 @@ require 'bike.rb'
       expect {subject.release_bike}.to raise_error('shit there is no bike!')
     end
 
-    it "raises error when a docking station is full" do
+    it "raises error when a docking station is full with default capacity" do
       DockingStation::DEFAULT_CAPACITY.times { subject.dock(bike) }
       expect {subject.dock(bike)}.to raise_error('docking station is full')
     end
@@ -30,6 +34,13 @@ require 'bike.rb'
       bike.break
       subject.dock(bike)
       expect { subject.release_bike }.to raise_error('no working bikes available')
+    end
+
+    it "user reports working state of bike" do
+      bike = double("bike", {:break => false, :working => false})
+      bike.break
+      subject.dock(bike)
+      expect(subject.bikes.last.working).to eq false
     end
 
     let(:bike1) { double :bike1}
@@ -44,10 +55,5 @@ require 'bike.rb'
       expect(subject.release_bike).to eq bike1
     end
 
-    it "user reports working state of bike" do
-      bike = double("bike", {:break => false, :working => false})
-      bike.break
-      subject.dock(bike)
-      expect(subject.bikes.last.working).to eq false
-    end
+
 end
