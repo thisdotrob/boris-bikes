@@ -24,12 +24,20 @@ require 'bike.rb'
     it "does not release broken bikes" do
       bike = Bike.new
       subject.dock(bike,false)
-      expect { subject.release_bike }.to raise_error('cannot release broken bike')
+      expect { subject.release_bike }.to raise_error('no working bikes available')
+    end
+
+    it "releases a working bike when there are broken bikes present" do
+      bike1 = Bike.new
+      bike2 = Bike.new
+      subject.dock(bike1)
+      subject.dock(bike2,false)
+      expect(subject.release_bike).to eq bike1
     end
 
     it "user reports working state of bike" do
       bike = Bike.new
       subject.dock(bike,false)
-      expect (subject.bikes.last.working).to eq false
+      expect(subject.bikes.last.working).to eq false
     end
 end

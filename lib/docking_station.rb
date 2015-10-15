@@ -12,8 +12,17 @@ class DockingStation
 
   def release_bike
     raise 'shit there is no bike!' if empty?
-    bike = @bikes.pop
-    raise 'cannot release broken bike' unless bike.working
+
+    bikes.length.times do
+      bike = @bikes.pop
+      if bike.working
+        return bike
+      else
+        @bikes.unshift bike
+      end
+    end
+
+    raise 'no working bikes available'
 
 
 
