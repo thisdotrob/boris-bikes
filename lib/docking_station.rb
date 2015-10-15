@@ -7,16 +7,23 @@ class DockingStation
   def initialize
     @bikes = []
   end
-  # attr_reader :bikes
+
+  attr_reader :bikes
 
   def release_bike
     raise 'shit there is no bike!' if empty?
-    @bikes.pop
+    bike = @bikes.pop
+    raise 'cannot release broken bike' unless bike.working
+
+
+
   end
 
-  def dock(bike)
+  def dock(bike, working=true)
     raise 'docking station is full' if full?
+    bike.working = false if !working
     @bikes << bike
+
   end
 
   private
