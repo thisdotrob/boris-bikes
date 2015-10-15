@@ -24,15 +24,12 @@ class DockingStation
 
     raise 'no working bikes available'
 
-
-
   end
 
-  def dock(bike, working=true)
-    raise 'docking station is full' if full?
-    bike.working = false if !working
-    @bikes << bike
 
+  def dock(bike)
+    raise 'docking station is full' if full?
+    @bikes << bike
   end
 
   private

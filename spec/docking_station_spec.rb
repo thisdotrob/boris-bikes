@@ -4,7 +4,7 @@ require 'bike.rb'
   describe DockingStation do
     it { is_expected.to respond_to :release_bike }
 
-    it { is_expected.to respond_to(:dock).with(2).arguments }
+    it { is_expected.to respond_to(:dock).with(1).argument }
 
     it "creates a bike when release_bike is called" do
       subject.dock(Bike.new)
@@ -23,21 +23,24 @@ require 'bike.rb'
 
     it "does not release broken bikes" do
       bike = Bike.new
-      subject.dock(bike,false)
+      bike.break
+      subject.dock(bike)
       expect { subject.release_bike }.to raise_error('no working bikes available')
     end
 
     it "releases a working bike when there are broken bikes present" do
       bike1 = Bike.new
       bike2 = Bike.new
+      bike2.break
       subject.dock(bike1)
-      subject.dock(bike2,false)
+      subject.dock(bike2)
       expect(subject.release_bike).to eq bike1
     end
 
     it "user reports working state of bike" do
       bike = Bike.new
-      subject.dock(bike,false)
+      bike.break
+      subject.dock(bike)
       expect(subject.bikes.last.working).to eq false
     end
 end
