@@ -10,7 +10,7 @@ require 'bike.rb'
     let(:bike) { double :bike}
 
     it "creates a bike when release_bike is called" do
-      allow(bike).to receive(:working).and_return(true)
+      bike = double("bike", :working => true)
       subject.dock(bike)
       bike = subject.release_bike
       expect(bike.working).to eq true
@@ -26,8 +26,7 @@ require 'bike.rb'
     end
 
     it "does not release broken bikes" do
-      allow(bike).to receive(:break)
-      allow(bike).to receive(:working).and_return false
+      bike = double("bike", {:working => false, :break => false})
       bike.break
       subject.dock(bike)
       expect { subject.release_bike }.to raise_error('no working bikes available')
@@ -37,9 +36,8 @@ require 'bike.rb'
     let(:bike2) { double :bike2}
 
     it "releases a working bike when there are broken bikes present" do
-      allow(bike1).to receive(:working).and_return true
-      allow(bike2).to receive(:break)
-      allow(bike2).to receive(:working).and_return false
+      bike1 = double("bike1", :working => true)
+      bike2 = double("bike2", {:break => false, :working => false})
       bike2.break
       subject.dock(bike1)
       subject.dock(bike2)
@@ -47,10 +45,7 @@ require 'bike.rb'
     end
 
     it "user reports working state of bike" do
-      bike = double("bike", :break => false)
-      bike = double("bike", :working => false)
-      allow(bike).to receive(:break)
-      allow(bike).to receive(:working).and_return false
+      bike = double("bike", {:break => false, :working => false})
       bike.break
       subject.dock(bike)
       expect(subject.bikes.last.working).to eq false
