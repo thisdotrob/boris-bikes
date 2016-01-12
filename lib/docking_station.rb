@@ -12,7 +12,7 @@ class DockingStation
   attr_reader :bikes
 
   def release_bike
-    raise 'shit there is no bike!' if empty?
+    raise 'No bikes in docking station' if empty?
 
     bikes.length.times do
       bike = @bikes.pop
