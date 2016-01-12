@@ -6,7 +6,8 @@ The project consists of 22 challenges, each building on one another. The aim of 
 The program simulates the Boris Bikes network and associated infrastructure (docking stations, vans, repair staff etc.).
 
 ### Usage ###
-
+Docking stations and bikes can be created and be used together as follows:
+![IRB example of use](http://i.imgur.com/J13EoKs.png)
 
 ### Setup ###
 Clone this repo, and run ```bundle``` (assuming Bundler is installed).

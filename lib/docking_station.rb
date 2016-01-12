@@ -11,9 +11,13 @@ class DockingStation
 
   attr_reader :bikes
 
+  def dock(bike)
+    raise 'docking station is full' if full?
+    @bikes << bike
+  end
+
   def release_bike
     raise 'No bikes in docking station' if empty?
-
     bikes.length.times do
       bike = @bikes.pop
       if bike.working
@@ -22,15 +26,7 @@ class DockingStation
         @bikes.unshift bike
       end
     end
-
     raise 'no working bikes available'
-
-  end
-
-
-  def dock(bike)
-    raise 'docking station is full' if full?
-    @bikes << bike
   end
 
   private
