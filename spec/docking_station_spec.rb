@@ -21,7 +21,7 @@ require 'bike.rb'
     end
 
     it "raises error when there are no bikes available" do
-      expect {subject.release_bike}.to raise_error('shit there is no bike!')
+      expect {subject.release_bike}.to raise_error('No bikes in docking station')
     end
 
     it "raises error when a docking station is full with default capacity" do
