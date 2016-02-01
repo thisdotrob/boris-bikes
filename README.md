@@ -5,10 +5,9 @@ This was the first of our weekly pairing projects set on the Makers Academy cour
 
 The project consists of 22 challenges, each building on one another. The aim of the project was to teach us how to get stuck, research effectively and find our own solutions. It also introduced us to TDD (we used a testing framework for the first time - rspec) and OOP.
 
-The program simulates the Boris Bikes network and associated infrastructure (docking stations, vans, repair staff etc.).
+The program simulates the Boris Bikes network and associated infrastructure (docking stations, vans, repair centers etc.).
 
 ## Brief
-
 We were given the following user stories to implement:
 ```
 As a person,
@@ -76,12 +75,65 @@ So that I can avoid the hassle of starting IRB,
 I'd like a text interface that can be run from the command line.
 ```
 
-## Usage
-Docking stations and bikes can be created and be used together as follows:
-![IRB example of use](http://i.imgur.com/J13EoKs.png)
-
 ## Setup
 Clone this repo, and run ```bundle``` (assuming Bundler is installed).
 
 ## Running tests
 Run ```rspec```.
+
+## Usage
+#### Require the classes:
+```ruby
+2.3.0 :001 > require './lib/docking_station'
+ => true
+2.3.0 :002 > require './lib/garage'
+ => true
+2.3.0 :003 > require './lib/van'
+ => true
+```
+#### Create a new docking station with a default capacity:
+```ruby
+2.3.0 :004 > station1 = DockingStation.new
+ => #<DockingStation:0x0000000234c5b8 @bikes=[], @capacity=20, @bike_class=Bike>
+```
+#### Create a docking station with a custom capacity:
+```ruby
+2.3.0 :005 > station2 = DockingStation.new(capacity: 10)
+ => #<DockingStation:0x000000023850e8 @bikes=[], @capacity=10, @bike_class=Bike>
+```
+#### Dock some new bikes in the station:
+```ruby
+2.3.0 :006 > 5.times { station1.dock_bike(Bike.new) }
+ => 5
+```
+#### Retrieve a working bike and notify the station it is broken on return:
+ ```ruby
+2.3.0 :007 > bike1 = station1.release_bike
+ => #<Bike:0x0000000234f718 @working=true>
+2.3.0 :008 > station2.dock_bike(bike1, true)
+ => [#<Bike:0x0000000234f718 @working=false>]
+```
+#### View the available bikes and release a specific one:
+```ruby
+2.3.0 :009 > station1.bikes
+ => [#<Bike:0x0000000234f650 @working=true>, #<Bike:0x0000000234f5d8 @working=true>, #<Bike:0x0000000234f510 @working=true>, #<Bike:0x0000000234f4e8 @working=true>]
+2.3.0 :010 > bike2 = station1.release_bike(2)
+ => #<Bike:0x0000000234f510 @working=true>
+2.3.0 :011 > station2.dock_bike(bike2)
+ => [#<Bike:0x0000000234f718 @working=false>, #<Bike:0x0000000234f510 @working=true>]
+```
+#### Order a van to collect the broken bikes and take them to be repaired:
+```ruby
+2.3.0 :012 > van = Van.new
+ => #<Van:0x000000022e84a0 @broken_bikes=[], @working_bikes=[]>
+2.3.0 :013 > garage = Garage.new
+ => #<Garage:0x000000022e0048>
+2.3.0 :014 > van.collect_broken_bikes(station2)
+ => [#<Bike:0x0000000234f718 @working=false>]
+2.3.0 :015 > van.fix_bikes(garage)
+ => [#<Bike:0x0000000234f718 @working=true>]
+2.3.0 :016 > van.deliver_working_bikes(station2)
+ => nil
+2.3.0 :017 > station2.bikes
+=> [#<Bike:0x0000000234f510 @working=true>, #<Bike:0x0000000234f718 @working=true>]
+```
