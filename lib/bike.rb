@@ -1,5 +1,4 @@
 class Bike
-
   def initialize
     @working = true
   end
@@ -10,6 +9,10 @@ class Bike
 
   def break
     @working = false
+  end
+
+  def fix
+    @working = true
   end
 
 end
