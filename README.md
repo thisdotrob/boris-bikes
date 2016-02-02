@@ -1,4 +1,12 @@
 # Makers Academy Week 1 - Boris Bikes
+[![Build Status](https://travis-ci.org/thisdotrob/boris-bikes.svg?branch=master)](https://travis-ci.org/thisdotrob/boris-bikes) [![Coverage Status](https://coveralls.io/repos/github/thisdotrob/boris-bikes/badge.svg?branch=master)](https://coveralls.io/github/thisdotrob/boris-bikes?branch=master)
+
+- [About](#about)
+- [Brief](#brief)
+- [Pre-requisites](#pre-requisites)
+- [Setup](#setup)
+- [Running tests](#running-tests)
+- [Usage](#usage)
 
 ## About
 This was the first of our weekly pairing projects set on the Makers Academy course.
@@ -75,6 +83,10 @@ So that I can avoid the hassle of starting IRB,
 I'd like a text interface that can be run from the command line.
 ```
 
+## Pre-requisites
+0. [Ruby 2.3.0](ruby)
+0. [Bundler gem](bundler)
+
 ## Setup
 Clone this repo, and run ```bundle``` (assuming Bundler is installed).
 
@@ -137,3 +149,6 @@ Run ```rspec```.
 2.3.0 :017 > station2.bikes
 => [#<Bike:0x0000000234f510 @working=true>, #<Bike:0x0000000234f718 @working=true>]
 ```
+
+[ruby]: https://www.ruby-lang.org/en/
+[bundler]: http://bundler.io/
