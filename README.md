@@ -1,7 +1,5 @@
 # Makers Academy Week 1 - Boris Bikes
-[![Build Status](https://travis-ci.org/thisdotrob/boris-bikes.svg?branch=master)](https://travis-ci.org/thisdotrob/boris-bikes) 
-
-[![Coverage Status](https://coveralls.io/repos/github/thisdotrob/boris-bikes/badge.svg?branch=master)](https://coveralls.io/github/thisdotrob/boris-bikes?branch=master)
+[![Build Status](https://travis-ci.org/thisdotrob/boris-bikes.svg?branch=master)](https://travis-ci.org/thisdotrob/boris-bikes) [![Coverage Status](https://coveralls.io/repos/github/thisdotrob/boris-bikes/badge.svg?branch=master)](https://coveralls.io/github/thisdotrob/boris-bikes?branch=master)
 
 - [About](#about)
 - [Brief](#brief)
